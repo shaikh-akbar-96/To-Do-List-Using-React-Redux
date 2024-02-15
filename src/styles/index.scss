@@ -1,5 +1,7 @@
-@import "./modules/button";
-@import "./modules/modal";
-@import "./modules/title";
-@import "./modules/todoitem";
-@import "./modules/app";
+@import "../styles/mixins";
+@import "../styles/base";
+@import "../styles/button";
+@import "../styles/modal";
+@import "../styles/title";
+@import "../styles/todoitem";
+@import "../styles/app";
