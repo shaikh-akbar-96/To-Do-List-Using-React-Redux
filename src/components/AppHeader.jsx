@@ -14,6 +14,8 @@ const AppHeader = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const updateFilter = (e) => {
+    console.log("New filter status:", e.target.value); // Check the value being selected
+
     dispatch(updateFilterStatus(e.target.value));
   };
 
@@ -25,7 +27,7 @@ const AppHeader = () => {
       <SelectButton id="status" value={filterStatus} onChange={updateFilter}>
         <option value="all"> ALL</option>
         <option value="Incomplete">Incomplete</option>
-        <option value="Complete">Complete</option>
+        <option value="complete">Complete</option>
       </SelectButton>
       <ToDoModal type="add" modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </div>
