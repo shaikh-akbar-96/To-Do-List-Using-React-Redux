@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/index.css";
 import { getClasses } from "./../utils/getClasses";
 import { format } from "date-fns";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { deleteTodo } from "../slices/todoSlice";
+import { deleteTodo, updateTodo } from "../slices/todoSlice";
 import toast from "react-hot-toast";
 import ToDoModal from "./ToDoModal";
+import CheckButton from "./CheckButton";
 
 const TodoItem = ({ todo }) => {
-  const [updateModalOpen, setUpdateModalOpen] = useState(false);
-
   const dispatch = useDispatch();
+
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (todo.status === "complete") {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  }, [todo.status]);
 
   const handleDelete = () => {
     dispatch(deleteTodo(todo.id));
@@ -22,11 +32,21 @@ const TodoItem = ({ todo }) => {
     setUpdateModalOpen(true);
   };
 
+  const handleCheck = () => {
+    setChecked(!checked);
+    dispatch(
+      updateTodo({
+        ...todo,
+        status: checked ? "incomplete" : "complete",
+      })
+    );
+  };
+
   return (
     <>
       <div className="item">
         <div className="todoDetails">
-          []
+          <CheckButton checked={checked} handleCheck={handleCheck} />
           <div className="texts">
             <p
               className={getClasses([
@@ -65,7 +85,7 @@ const TodoItem = ({ todo }) => {
       </div>
       <ToDoModal
         type="update"
-        todo = {todo}
+        todo={todo}
         modalOpen={updateModalOpen}
         setModalOpen={setUpdateModalOpen}
       />
