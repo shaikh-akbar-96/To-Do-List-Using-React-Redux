@@ -8,6 +8,7 @@ import { deleteTodo, updateTodo } from "../slices/todoSlice";
 import toast from "react-hot-toast";
 import ToDoModal from "./ToDoModal";
 import CheckButton from "./CheckButton";
+import { motion } from 'framer-motion';
 
 
 const child = {
@@ -56,7 +57,7 @@ const TodoItem = ({ todo }) => {
 
   return (
     <>
-      <div className="item">
+      <motion.div className="item" variants={child}>
         <div className="todoDetails">
           <CheckButton checked={checked} handleCheck={handleCheck} />
           <div className="texts">
@@ -94,7 +95,7 @@ const TodoItem = ({ todo }) => {
             <MdEdit />
           </div>
         </div>
-      </div>
+      </motion.div>
       <ToDoModal
         type="update"
         todo={todo}
