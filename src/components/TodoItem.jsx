@@ -9,6 +9,18 @@ import toast from "react-hot-toast";
 import ToDoModal from "./ToDoModal";
 import CheckButton from "./CheckButton";
 
+
+const child = {
+  hidden: {
+    y: 20,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch();
 

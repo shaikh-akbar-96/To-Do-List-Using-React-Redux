@@ -2,6 +2,31 @@ import React from "react";
 import { useSelector } from "react-redux";
 import TodoItem from "./TodoItem";
 import "../styles/index.css";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: {
+    opacity: 1,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const child = {
+  hidden: {
+    y: 20,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const AppContent = () => {
   const todoList = useSelector((state) => state.todo.todoList);
@@ -21,11 +46,16 @@ const AppContent = () => {
   });
 
   return (
-    <div className="content__wrapper">
+    <motion.div
+      className="content__wrapper"
+      variants={container}
+      initial="hidden"
+      animate="visible"
+    >
       {filteredTodoList && filteredTodoList.length > 0
         ? filteredTodoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
-        : "No todo found"}
-    </div>
+        : <motion.p className="emptyText" variants={child}>No todo found</motion.p>}
+    </motion.div>
   );
 };
 
